@@ -26,20 +26,22 @@ namespace hap.Services
 
             var hintStrings = new List<string>();
 
+            var longHintPrefixCount = wholeHintCount / hintCharacters.Length - shortHintCount;
+            for (int i = 0, j = 0; i < longHintCount; ++i, ++j)
+            {
+                hintStrings.Add(NumberToHintString(j, hintCharacters, digitsNeeded));
+                if ((i + 1) % longHintPrefixCount == 0)
+                {
+                    j += shortHintCount;
+                }
+            }
+
             if (digitsNeeded > 1)
             {
                 for (var i = 0; i < shortHintCount; ++i)
                 {
-                    hintStrings.Add(NumberToHintString(i, hintCharacters, digitsNeeded - 1));
+                    hintStrings.Add(NumberToHintString(i + longHintPrefixCount, hintCharacters, digitsNeeded - 1));
                 }
-            }
-
-            var longHintPrefixCount = wholeHintCount / hintCharacters.Length - shortHintCount;
-            for (int i = 0, j = 0; i < longHintCount; ++i, ++j)
-            {
-                if (i % longHintPrefixCount == 0)
-                    j += shortHintCount;
-                hintStrings.Add(NumberToHintString(j, hintCharacters, digitsNeeded));
             }
             
             return hintStrings.ToList();
