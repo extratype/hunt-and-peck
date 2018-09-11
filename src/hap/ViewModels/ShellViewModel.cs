@@ -39,14 +39,14 @@ namespace hap.ViewModels
 
             _keyListener.HotKey = new HotKey
             {
-                Keys = Keys.OemSemicolon,
+                Keys = Keys.Oemtilde,
                 Modifier = KeyModifier.Alt
             };
 
 #if DEBUG
             _keyListener.DebugHotKey = new HotKey
             {
-                Keys = Keys.OemSemicolon,
+                Keys = Keys.Oemtilde,
                 Modifier = KeyModifier.Alt | KeyModifier.Shift
             };
 #endif
