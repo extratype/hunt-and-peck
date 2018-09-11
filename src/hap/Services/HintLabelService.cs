@@ -17,6 +17,12 @@ namespace hap.Services
         /// <returns>A list of hint strings</returns>
         public IList<string> GetHintStrings(int hintCount)
         {
+            var hintStrings = new List<string>();
+            if (hintCount <= 0)
+            {
+                return hintStrings;
+            }
+
             var hintCharacters = new[] { 'S', 'A', 'D', 'F', 'W', 'Q', 'E', 'R', 'X', 'Z', 'C', 'V' };
             var digitsNeeded = (int)Math.Ceiling(Math.Log(hintCount) / Math.Log(hintCharacters.Length));
 
@@ -24,13 +30,11 @@ namespace hap.Services
             var shortHintCount = (wholeHintCount - hintCount) / hintCharacters.Length;
             var longHintCount = hintCount - shortHintCount;
 
-            var hintStrings = new List<string>();
-
             var longHintPrefixCount = wholeHintCount / hintCharacters.Length - shortHintCount;
             for (int i = 0, j = 0; i < longHintCount; ++i, ++j)
             {
                 hintStrings.Add(NumberToHintString(j, hintCharacters, digitsNeeded));
-                if ((i + 1) % longHintPrefixCount == 0)
+                if (longHintPrefixCount > 0 && (i + 1) % longHintPrefixCount == 0)
                 {
                     j += shortHintCount;
                 }
